@@ -1,0 +1,272 @@
+<div class="container">
+  <div class="container-fluid">
+
+    <ng-template #loading>
+      <img class="d-flex flex-row justify-content-center images" src="../../assets/Maps-Logo-Animation.gif">
+    </ng-template>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <button class="btn btn-Store mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#staticexampleModal"
+          (click)="createMode()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus"
+            viewBox="0 0 16 16">
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+          </svg>
+          Add Store</button>
+        <br>
+        <div class="modal fade" id="staticexampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+          aria-labelledby="staticexampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticexampleModalLabel">Store</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                  (click)="closeModal()"></button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="form">
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Store Number</label>
+                    <input *ngIf="update" type="text" class="form-control" id="staticrecipient-name"
+                      formControlName="StoreNum" [readonly]="true">
+                    <input *ngIf="create" type="text" class="form-control" id="staticrecipient-name"
+                      formControlName="StoreNum">
+                  </div>
+                  <div formArrayName="emailData">
+                    <div class="row" *ngFor="let email of emailData.controls; let i = index">
+                      <label for="message-text" class="col-form-label">Email</label>
+                      <div class="col-lg-11 mb-3" [formGroupName]="i">
+                        <input type="text" class="form-control" id="staticmessage-text" formControlName="Email">
+
+                      </div>
+                      <div class="col-lg-1"><button type="button"
+                          style="font-weight: bold;margin-left: -11px; margin-top: 5px; font-size:x-small; opacity: 0.7;"
+                          class="btn btn-danger btn-sm btn-circle" (click)="delEmailItem(i)">-</button></div>
+                    </div>
+                  </div>
+                </form>
+                <button style="font-size:x-small; opacity: 0.8;" class="btn btn-primary"
+                  *ngIf="emailData.controls.length < 10" (click)="addEmailItem()">Add Email</button>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <button type="button" class="btn btn-danger btn-sm col-2 m-2 float-end"
+                    style="font-size:x-small; opacity: 0.8; border-radius: 20px; color: white;" data-bs-dismiss="modal"
+                    (click)="closeModal()">Close</button>
+                  <button *ngIf="create" type="button" class="btn btn-success btn-sm col-2 m-2 float-end"
+                    style="font-size:x-small; opacity: 0.7; border-radius: 10px; color: white"
+                    (click)="submitStore()">Submit</button>
+                  <button *ngIf="update" type="button" class="btn btn-success btn-sm col-2 m-2 float-end"
+                    style="font-size:x-small; opacity: 0.7; border-radius: 10px; color: white"
+                    (click)="updateStore()">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #load>
+      <div class="down">
+        <table class="table table-bordered" style="background-color: #EFF9FF; width: 100%">
+          <thead>
+            <tr>
+              <th scope="col">Sr#</th>
+              <th scope="col">Store Number</th>
+              <th scope="col">Store Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Email</th>
+              <th scope="col" style="width:25%">Action</th>
+            </tr>
+          </thead>
+        </table>
+        <h3 style="text-align: center;">List is empty</h3>
+      </div>
+    </ng-template>
+
+    <div *ngIf="loadingscreen == false; else loading">
+      <div *ngIf="listStore.length > 0; else load">
+        <div class="down" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;">
+          <table class=" table table-bordered table-striped " style="border-color: #e6f4fc;">
+            <thead>
+              <tr>
+                <th scope="col">Sr#</th>
+                <th scope="col">Store Number</th>
+                <th scope="col">Store Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Email</th>
+                <th scope="col" style="width:25%">Action</th>
+              </tr>
+            </thead>
+            <tbody style="background-color: #EFF9FF;">
+              <tr *ngFor="let store of listStore; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ store.StoreNum }}</td>
+                <td>{{ store.StoreName }}</td>
+                <td *ngIf="store.Status === 'Active'" style="border-right: 1px solid #c7c7c7;">
+                  <small class="badge badge-success" style="font-size:x-small; background-color: #66e6a8;
+                  color: #0b4121; "><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                        <path
+                          d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                      </svg></span>{{ store.Status }}</small>
+                </td>
+
+                <td *ngIf="store.Status != 'Active'" style="border-right: 1px solid #c7c7c7;">
+                  <small class="badge badge-warning" style=" font-size:x-small; background-color: #fac6cf;
+                  color: #790619; "><span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path
+                          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                      </svg></span>{{ store.Status }}</small>
+                </td>
+                <td style="border-right: 1px solid #c7c7c7;">
+                  <div class="tooltipp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                      fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                      <path
+                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                    </svg>
+                    <span class="tooltiptext" style="display: flex; flex-direction:column;">
+                      <a *ngFor="let email of store.emailData">{{email.Email}}</a>
+                    </span>
+                  </div>
+                </td>
+
+                <td colspan="4" class="d-flex flex-row justify-content-center align-items-center edit">
+
+
+                  <button class="btn btn-primary btn-sm m-1" style="font-size:x-small; opacity: 0.8;"
+                    data-bs-toggle="modal" data-bs-target="#staticexampleModal" (click)="createModal(store.StoreNum)">
+                    <!-- <img class="image" src="../../assets/pencil-square.svg"  alt=""> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg> -->
+                    Edit Store
+                  </button>
+                  <button class="btn next btn-sm m-2" style="font-size: x-small;;" data-bs-toggle="modal"
+                    data-bs-target="#staticexampleModal1" (click)="flagModal(store.StoreNum)">
+                    Manage Metrics
+                  </button>
+                  <button *ngIf="store.Status == 'Active'" class="badge badge-warning col-lg-3 "
+                    style="opacity: 0.9; font-size: x-small;" (click)="makeInactive(store)">
+                    Deactivate
+                  </button>
+                  <button *ngIf="store.Status != 'Active'" class="badge badge-success col-lg-3"
+                    style="opacity: 0.9; font-size: x-small;" (click)="makeActive(store)">
+                    Activate
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!--- Manage Metrics Modal --->
+    <div class="modal fade" id="staticexampleModal1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+      aria-labelledby="staticexampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width: 85%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticexampleModalLabel">Store # {{StoreNum}}</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+              (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-4 mt-5">
+                <h1 style="text-align: center; font-family: none; font-size: 2.0rem;">Daily Report Titles <span *ngIf="this.flagval.length >= 20" style="color: red; font-size: 10px;">Max Limit: 20 Metrics</span></h1>
+                <div class="down-modal">
+                  <table class="table table-bordered" style="border-color: #e6f4fc;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="edit" style="background-color: #EFF9FF;">
+                      <tr *ngFor="let metrics of flagInfo.DMetricsFlag; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ metrics.Title }}</td>
+                        <td>{{ metrics.Value }}</td>
+                        <td>
+                          <button class="btn btn-danger btn-sm mr-3" style="font-size:x-small; opacity: 0.8;"
+                            *ngIf="metrics.Value == 'Enable'" (click)="disableDFlag(flagInfo, metrics)">Disable</button>
+                          <button class="btn btn-success btn-sm mr-3" style="font-size:x-small; opacity: 0.8;"
+                            *ngIf="metrics.Value == 'Disable'" (click)="enableDFlag(flagInfo, metrics)" [disabled]="this.flagval.length >= 20">Enable</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-4 mt-5">
+                <h1 style="text-align: center; font-family: none; font-size: 2.0rem;">Weekly Report Titles</h1>
+                <div class="down-modal">
+                  <table class="table table-bordered" style="border-color: #e6f4fc;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="edit" style="background-color: #EFF9FF;">
+                      <tr *ngFor="let metrics of flagInfo.WMetricsFlag; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ metrics.Title }}</td>
+                        <td>{{ metrics.Value }}</td>
+                        <td>
+                          <button class="btn btn-danger btn-sm mr-3" style="font-size:x-small; opacity: 0.8;"
+                            *ngIf="metrics.Value == 'Enable'" (click)="disableWFlag(flagInfo, metrics)">Disable</button>
+                          <button class="btn btn-success btn-sm mr-3" style="font-size:x-small; opacity: 0.8;"
+                            *ngIf="metrics.Value == 'Disable'" (click)="enableWFlag(flagInfo, metrics)">Enable</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-4 mt-5">
+                <h1 style="text-align: center; font-family: none; font-size: 2.0rem;">Period Report Titles</h1>
+                <div class="down-modal">
+                  <table class="table table-bordered" style="border-color: #e6f4fc;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="edit" style="background-color: #EFF9FF;">
+                      <tr *ngFor="let metrics of flagInfo.PMetricsFlag; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ metrics.Title }}</td>
+                        <td>{{ metrics.Value }}</td>
+                        <td>
+                          <button class="btn btn-danger btn-sm mr-3" style="font-size:x-small; opacity: 0.8;"
+                            *ngIf="metrics.Value == 'Enable'" (click)="disablePFlag(flagInfo, metrics)">Disable</button>
+                          <button class="btn btn-success btn-sm mr-3" style="font-size:x-small; opacity: 0.8;"
+                            *ngIf="metrics.Value == 'Disable'" (click)="enablePFlag(flagInfo, metrics)">Enable</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

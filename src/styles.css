@@ -1,0 +1,79 @@
+@import '~@aws-amplify/ui-angular/theme.css';
+
+[data-amplify-authenticator] [data-amplify-router] {
+  border-style: none !important;
+  border-radius: 8px;
+}
+
+.containerDiv{
+  background-image: url(./assets/Login-Page.svg);
+  max-width: 100%;
+  background-size: cover;
+  /* min-height: 100%; */
+  height: 100%;
+}
+
+/* [data-amplify-authenticator]{
+  
+} */
+
+.amplify-input{
+  background-color: white;
+}
+
+.amplify-button[data-variation='primary'] {
+  background-color: #A91409;
+}
+
+.amplify-button[data-variation='link']:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+.amplify-image{
+  height: 50%;
+  width: 60%;
+  margin-top: 10%;
+}
+
+.amplify-button {
+  cursor: wait;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  max-width: 99%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  display: none;
+}
+
+.max-h-w {
+  height: 100vh;
+  width: 100vw;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}

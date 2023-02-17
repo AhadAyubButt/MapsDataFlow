@@ -1,0 +1,238 @@
+<div class="container">
+  <div class="container-fluid">
+
+    <ng-template #loading>
+      <img class="d-flex flex-row justify-content-center images" src="../../assets/Maps-Logo-Animation.gif">
+    </ng-template>
+
+    <form [formGroup]="form">
+      <div class="row mt-2">
+        <div class="col-lg-9"></div>
+        <div class="col-lg-2 ">
+          <input type="date" class="date form-control" formControlName="BusDate">
+        </div>
+        <div class="col-lg-1">
+          <button class="btn btn-search" (click)="search()">Search</button>
+        </div>
+      </div>
+    </form>
+    <div class="modal fade" id="staticexampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+      aria-labelledby="staticexampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width: 85%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticexampleModalLabel">Metrics for Store # {{StoreNum}}</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+              (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <div *ngIf="metricsInfo?.DMetrics && metricsInfo?.WMetrics" class="col-lg-4 mt-5">
+                <h1 style="text-align: center; font-family: none; font-size: 2.0rem;">Daily Metrics</h1>
+                <div class="down-modal">
+                  <table class="table table-bordered" style="border-color: #e6f4fc;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="edit" style="background-color: #EFF9FF;">
+                      <tr *ngFor="let mett of metricsInfo?.DMetrics; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ mett.Title }}</td>
+                        <td>{{ mett.Value }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div *ngIf="metricsInfo?.DMetrics && !metricsInfo?.WMetrics" class="col-lg-12 mt-5">
+                <h1 style="text-align: center; font-family: none; font-size: 2.0rem;">Daily Metrics</h1>
+                <div class="down-modal">
+                  <table class="table table-bordered" style="border-color: #e6f4fc;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="edit" style="background-color: #EFF9FF;">
+                      <tr *ngFor="let mett of metricsInfo?.DMetrics; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ mett.Title }}</td>
+                        <td>{{ mett.Value }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div *ngIf="metricsInfo?.WMetrics" class="col-lg-4 mt-5">
+                <h1 style="text-align: center; font-family: none; font-size: 2.0rem;">WTD Metrics</h1>
+                <div class="down-modal">
+                  <table class="table table-bordered" style="border-color: #e6f4fc;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="edit" style="background-color: #EFF9FF;">
+                      <tr *ngFor="let mett of metricsInfo?.WMetrics; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ mett.Title }}</td>
+                        <td>{{ mett.Value }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div *ngIf="metricsInfo?.PMetrics" class="col-lg-4 mt-5">
+                <h1 style="text-align: center; font-family: none; font-size: 2.0rem;">PTD Metrics</h1>
+                <div class="down-modal">
+                  <table class="table table-bordered" style="border-color: #e6f4fc;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="edit" style="background-color: #EFF9FF;">
+                      <tr *ngFor="let mett of metricsInfo?.PMetrics; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ mett.Title }}</td>
+                        <td>{{ mett.Value }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="card">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody style="background-color: #EFF9FF;">
+                  <tr *ngFor="let mett of metricsInfo?.DMetrics; let i = index">
+                    <td>{{mett.Title}}</td>
+                    <td>{{mett.Value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody style="background-color: #EFF9FF;">
+                  <tr *ngFor="let mett of metricsInfo?.PMetrics; let i = index">
+                    <td>{{mett.Title}}</td>
+                    <td>{{mett.Value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody style="background-color: #EFF9FF;">
+                  <tr *ngFor="let mett of metricsInfo?.WMetrics; let i = index">
+                    <td>{{mett.Title}}</td>
+                    <td>{{mett.Value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <button type="button" class="btn btn-danger btn-sm col-2 m-3 float-end"
+                style="font-size:x-small; opacity: 0.7;border-radius: 16px; color: white;" data-bs-dismiss="modal"
+                (click)="closeModal()">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <ng-template #load>
+      <div class="down">
+        <table class="table table-bordered" style="background-color: #EFF9FF; width: 100%">
+          <thead>
+            <tr>
+              <th scope="col">Sr#</th>
+              <th scope="col">Store Number</th>
+              <th scope="col">Store Name</th>
+              <th scope="col">Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">View Metrics</th>
+            </tr>
+          </thead>
+        </table>
+        <h3 style="text-align: center;">List is empty</h3>
+      </div>
+    </ng-template>
+
+    <div *ngIf="loadingscreen == false; else loading">
+      <div *ngIf="newListMetrics.length > 0; else load">
+        <div class="down" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;">
+          <table class="table table-bordered table-striped" style="border-color: #e6f4fc;">
+            <thead>
+              <tr>
+                <th scope="col">Sr#</th>
+                <th scope="col">Store Number</th>
+                <th scope="col">Store Name</th>
+                <th scope="col">Area Coach</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">View Metrics</th>
+              </tr>
+            </thead>
+            <tbody class="edit" style="background-color: #EFF9FF;">
+              <tr *ngFor="let metrics of newListMetrics; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ metrics.StoreNum }}</td>
+                <td>{{ metrics.StoreName }}</td>
+                <td *ngIf="metrics.Area">{{ metrics.Area }}</td>
+                <td *ngIf="!metrics.Area">-</td>
+                <td>{{ metrics.CreateDate | date }}</td>
+                <td *ngIf="metrics.MStatus === 'Pending'">
+                  <small class="badge badge-warning">{{ metrics.MStatus }}</small></td>
+                <td *ngIf="metrics.MStatus === 'Delivered'">
+                  <small class="badge badge-success">{{ metrics.MStatus }}</small></td>
+                <td><button class="btn new btn-sm mr-3" data-bs-toggle="modal" data-bs-target="#staticexampleModal"
+                    (click)="createModal(metrics.SK)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                      class="bi bi-eye-fill" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                      <path
+                        d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                    </svg>
+                  </button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

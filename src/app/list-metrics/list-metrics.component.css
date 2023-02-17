@@ -1,0 +1,79 @@
+.down{
+  overflow: scroll;
+  height: 90vh;
+  margin-top: 25px;
+}
+
+
+table th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0%;
+  z-index: 1;
+  background-color: #404042;
+  color: white; 
+}
+
+table th{
+  text-align: center;
+}
+table tr{
+  text-align: center;
+}
+
+
+.badge-warning{
+  background-color: #b69329;
+}
+
+.badge-success{
+  background-color: #28a745;
+}
+
+.edit .new{
+  background-color: transparent;
+  color: #2574A9;
+}
+
+.modal-body {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+.modal-content{
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+} 
+.modal-header{
+  background-color: #252525;
+  color: white;
+} 
+.modal-footer{
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+.btn-search{
+  background-color: #A91409;
+  border: none;
+  color: white;
+}
+
+.btn-search:hover{
+  background-color: #005566;
+  border: none;
+}
+
+.down{
+  overflow: scroll;
+  height: 85vh;
+}
+
+.down-modal{
+  overflow: scroll;
+  height: 60vh;
+}
+
+.images{
+  margin: auto;
+  height: 80vh;
+}

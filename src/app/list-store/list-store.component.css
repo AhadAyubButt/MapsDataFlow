@@ -1,0 +1,112 @@
+
+
+.down{
+    overflow: scroll;
+    height: 85vh;
+  }
+
+  .down-modal{
+    overflow: scroll;
+    height: 60vh;
+  }
+  
+  
+  table th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0%;
+    z-index: 1;
+    background-color: #404042;
+    color: white; 
+  }
+  
+  
+  table th{
+    text-align: center;
+  }
+  table tr{
+    text-align: center;
+  }
+  
+  .btn-close{
+      background-color: white;
+  }
+  
+  .modal-body {
+    background-color: #ffffff;
+    color: rgb(52, 52, 52);
+  }
+  .modal-content{
+    background-color: #ffffff;
+    color: white;
+  } 
+  .modal-header{
+    background-color: #1c1c1c;
+    color: white;
+  } 
+  .modal-footer{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+  }
+
+img{
+  color: white;
+}
+
+.edit .next{
+ background-color:#2574a9 ;
+color: white;
+}
+
+.badge-success{
+  background-color: #198754;
+  border-radius: 10px;
+}
+.badge-warning{
+  background-color: #dc3545;
+  border-radius: 10px;
+}
+
+.tooltipp {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipp .tooltiptext {
+  visibility: hidden;
+  width: 334px;
+  height: max-content;
+  background-color: #ffffff;
+  color: rgb(28, 28, 28);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 3px;
+  padding: 5px 0;
+  position: absolute;
+  position: absolute;
+  z-index: 1;
+  top: -33px;
+  left: 142%;
+  
+}
+
+.tooltipp:hover .tooltiptext {
+  visibility: visible;
+}
+
+.btn-Store{
+  background-color: #A91409;
+  border: none;
+  color: white;
+}
+
+.btn-Store:hover{
+  background-color: #005566;
+  border: none;
+}
+
+.images{
+  margin: auto;
+  height: 80vh;
+}

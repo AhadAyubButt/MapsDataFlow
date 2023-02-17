@@ -1,0 +1,27 @@
+<div class="containerDiv" id="containerDiv">
+  <amplify-authenticator id="amplify-authenticator" initialState="signIn"
+    [loginMechanisms]="['username', 'email', 'phone_number']" [hideSignUp]="true">
+
+    <ng-template amplifySlot="header">
+      <div id="header" style="padding: var(--amplify-space-large); text-align: center">
+        <img class="amplify-image" alt="Amplify logo" src="" />
+      </div>
+    </ng-template>
+
+    <ng-template amplifySlot="footer">
+      <div id="footer" style="padding: var(--amplify-space-large); text-align: center;">
+        <div class="d-flex justify-content-center align-items-center">
+          <p style="font-size: 10px; color: black;">Copyright © - 2022
+            All Rights Reserved.</p>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
+      <router-outlet class="max-h-w">
+      </router-outlet>
+    </ng-template>
+
+  </amplify-authenticator>
+
+</div>
